@@ -1,0 +1,46 @@
+{
+  "functions": {
+    "check-subscription": {
+      "runtime": "edge"
+    },
+    "create-checkout": {
+      "runtime": "edge"  
+    },
+    "create-tip": {
+      "runtime": "edge"
+    },
+    "customer-portal": {
+      "runtime": "edge"
+    }
+  },
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "X-Frame-Options", 
+          "value": "DENY"
+        },
+        {
+          "key": "X-XSS-Protection",
+          "value": "1; mode=block"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
+        }
+      ]
+    }
+  ],
+  "redirects": [
+    {
+      "source": "/supabase/functions/:path*",
+      "destination": "https://xokezxcubfffhwxmceby.supabase.co/functions/v1/:path*",
+      "permanent": false
+    }
+  ]
+}

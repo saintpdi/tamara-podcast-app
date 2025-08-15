@@ -1,0 +1,203 @@
+/* Mobile-specific styles for Capacitor app */
+
+/* Safe area support for notched devices */
+:root {
+  --sat: env(safe-area-inset-top);
+  --sab: env(safe-area-inset-bottom);
+  --sal: env(safe-area-inset-left);
+  --sar: env(safe-area-inset-right);
+}
+
+/* Mobile app container */
+.capacitor-app {
+  padding-top: var(--sat, 0);
+  padding-bottom: var(--sab, 0);
+  padding-left: var(--sal, 0);
+  padding-right: var(--sar, 0);
+}
+
+/* Keyboard adjustments */
+body.keyboard-open {
+  --keyboard-offset: 0;
+}
+
+body.keyboard-open .main-content {
+  padding-bottom: var(--keyboard-offset, 0);
+  transition: padding-bottom 0.3s ease;
+}
+
+/* Touch optimizations */
+@media (hover: none) and (pointer: coarse) {
+  /* Increase touch target sizes */
+  button, a, [role="button"] {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  /* Remove hover effects on touch devices */
+  .hover\:bg-accent:hover {
+    background-color: inherit;
+  }
+  
+  /* Add active states for better feedback */
+  button:active, a:active, [role="button"]:active {
+    transform: scale(0.98);
+    transition: transform 0.1s ease;
+  }
+}
+
+/* Status bar spacing */
+.status-bar-safe-area {
+  height: var(--sat, 20px);
+  background: var(--primary);
+}
+
+/* Bottom safe area for home indicator */
+.bottom-safe-area {
+  height: var(--sab, 0);
+  background: var(--background);
+}
+
+/* Prevent zoom on input focus */
+input, textarea, select {
+  font-size: 16px !important;
+}
+
+/* Improve scrolling on iOS */
+.scroll-container {
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+}
+
+/* Hide scrollbars on mobile */
+@media (max-width: 768px) {
+  .hide-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* Pull-to-refresh indicator */
+.ptr-indicator {
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--muted-foreground);
+  font-size: 14px;
+}
+
+/* Mobile navigation adjustments */
+@media (max-width: 768px) {
+  .mobile-nav {
+    position: fixed;
+    bottom: var(--sab, 0);
+    left: 0;
+    right: 0;
+    background: var(--background);
+    border-top: 1px solid var(--border);
+    z-index: 50;
+  }
+  
+  .mobile-nav-item {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 8px 4px;
+    text-align: center;
+    font-size: 12px;
+  }
+}
+
+/* Loading states for better UX */
+.loading-shimmer {
+  background: linear-gradient(
+    90deg,
+    var(--muted) 25%,
+    var(--muted-foreground) 50%,
+    var(--muted) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+/* Haptic feedback visual indicator */
+.haptic-feedback {
+  transition: transform 0.1s ease;
+}
+
+.haptic-feedback:active {
+  transform: scale(0.95);
+}
+
+/* Network status indicator */
+.network-offline {
+  position: fixed;
+  top: var(--sat, 0);
+  left: 0;
+  right: 0;
+  background: var(--destructive);
+  color: var(--destructive-foreground);
+  text-align: center;
+  padding: 8px;
+  font-size: 14px;
+  z-index: 100;
+}
+
+/* Swipe gestures */
+.swipeable {
+  touch-action: pan-x;
+}
+
+/* Audio player mobile optimizations */
+.audio-player-mobile {
+  position: fixed;
+  bottom: var(--sab, 0);
+  left: 0;
+  right: 0;
+  background: var(--background);
+  border-top: 1px solid var(--border);
+  padding: 12px;
+  z-index: 40;
+}
+
+/* Modal adjustments for mobile */
+@media (max-width: 768px) {
+  .modal-mobile {
+    margin: 0;
+    border-radius: 16px 16px 0 0;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    max-height: 90vh;
+  }
+}
+
+/* Text selection improvements */
+.selectable-text {
+  -webkit-user-select: text;
+  user-select: text;
+}
+
+.non-selectable {
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+/* Dark mode adjustments for mobile */
+@media (prefers-color-scheme: dark) {
+  .status-bar-safe-area {
+    background: var(--background);
+  }
+}

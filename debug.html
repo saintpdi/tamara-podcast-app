@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debug Tamara App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #ff6b6b, #4ecdc4);
+            min-height: 100vh;
+            color: white;
+        }
+        .debug-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+        .test-frame {
+            width: 100%;
+            height: 600px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
+            background: white;
+        }
+        .status {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            background: rgba(255, 255, 255, 0.2);
+        }
+        .error { background: rgba(255, 0, 0, 0.3); }
+        .success { background: rgba(0, 255, 0, 0.3); }
+        .warning { background: rgba(255, 255, 0, 0.3); }
+    </style>
+</head>
+<body>
+    <div class="debug-container">
+        <h1>🔍 Tamara App Debug Tool</h1>
+        
+        <div id="status-container">
+            <div class="status">⏳ Checking server status...</div>
+        </div>
+
+        <h3>📱 App Preview:</h3>
+        <iframe id="app-frame" class="test-frame" src="http://localhost:8080"></iframe>
+
+        <h3>🛠️ Diagnostics:</h3>
+        <button onclick="runDiagnostics()" style="padding: 10px 20px; margin: 10px; background: #ff6b6b; color: white; border: none; border-radius: 5px; cursor: pointer;">
+            Run Full Diagnostics
+        </button>
+        
+        <div id="diagnostics-results"></div>
+    </div>
+
+    <script>
+        function addStatus(message, type = 'status') {
+            const container = document.getElementById('status-container');
+            const status = document.createElement('div');
+            status.className = `status ${type}`;
+            status.innerHTML = message;
+            container.appendChild(status);
+        }
+
+        function runDiagnostics() {
+            const results = document.getElementById('diagnostics-results');
+            results.innerHTML = `
+                <h4>🔍 Diagnostic Results:</h4>
+                <div class="status success">✅ Debug page loaded successfully</div>
+                <div class="status success">✅ JavaScript is working</div>
+                <div class="status success">✅ CSS styling applied</div>
+                <div class="status warning">⚠️ Check iframe above for white screen</div>
+                <div class="status">📋 <strong>Common causes of white screen:</strong></div>
+                <ul style="margin: 10px 0; padding-left: 20px;">
+                    <li>JavaScript errors in console</li>
+                    <li>Missing environment variables</li>
+                    <li>Supabase client initialization error</li>
+                    <li>React component rendering error</li>
+                    <li>CSS not loading properly</li>
+                </ul>
+                <div class="status">🔧 <strong>To fix:</strong></div>
+                <ol style="margin: 10px 0; padding-left: 20px;">
+                    <li>Open browser DevTools (F12)</li>
+                    <li>Check Console tab for errors</li>
+                    <li>Check Network tab for failed requests</li>
+                    <li>Verify .env file exists and has correct values</li>
+                    <li>Restart development server</li>
+                </ol>
+            `;
+        }
+
+        // Check if the app loads
+        document.getElementById('app-frame').onload = function() {
+            addStatus('🎉 App iframe loaded (but might still show white screen)', 'warning');
+        };
+
+        document.getElementById('app-frame').onerror = function() {
+            addStatus('❌ App iframe failed to load', 'error');
+        };
+
+        // Auto-run diagnostics after 3 seconds
+        setTimeout(() => {
+            addStatus('🔄 Auto-running diagnostics...', 'warning');
+            runDiagnostics();
+        }, 3000);
+    </script>
+</body>
+</html>

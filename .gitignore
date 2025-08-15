@@ -1,0 +1,58 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+node_modules
+dist
+dist-ssr
+*.local
+
+# Environment variables
+.env
+.env.local
+.env.development
+.env.production
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Android
+android/app/build/
+android/app/release/
+android/app/debug/
+android/build/
+android/.gradle/
+android/local.properties
+android/app/src/main/assets/public/
+
+# iOS
+ios/App/build/
+ios/App/Pods/
+ios/App/public/
+
+# Capacitor
+.capacitor/
+capacitor.config.json
+
+# APK files (we'll get these from GitHub releases)
+*.apk
+*.aab
+
+# Temporary build files
+*.tmp
+*.temp
+temp/
+tmp/
